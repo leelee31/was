@@ -2,7 +2,7 @@ package servletcontainer;
 
 import servlet.handler.HandlerAdapter;
 import servlet.handler.HandlerMapping;
-import servlet.handler.HttpHandlerAdapter;
+import servlet.handler.SimpleControllerHandlerAdapter;
 import servlet.handler.UrlControllerHandlerMapping;
 
 public class ApplicationContext {
@@ -11,7 +11,7 @@ public class ApplicationContext {
 
     private ApplicationContext() {
         hm = new UrlControllerHandlerMapping();
-        ha = new HttpHandlerAdapter();
+        ha = new SimpleControllerHandlerAdapter();
         createUrlMatchDirectory();
     }
 

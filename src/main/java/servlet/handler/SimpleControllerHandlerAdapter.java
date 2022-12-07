@@ -6,7 +6,7 @@ import http.HttpResponse;
 
 import servlet.ModelAndView;
 
-public class HttpHandlerAdapter implements HandlerAdapter{
+public class SimpleControllerHandlerAdapter implements HandlerAdapter{
     @Override
     public boolean support(Object handler) {
         return (handler instanceof Controller);
