@@ -1,4 +1,4 @@
-package handler;
+package servlet.handler;
 
 import http.HttpRequest;
 import http.HttpResponse;

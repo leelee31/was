@@ -1,9 +1,9 @@
-package servlet;
+package servletcontainer;
 
-import handler.HandlerAdapter;
-import handler.HandlerMapping;
-import handler.HttpHandlerAdapter;
-import handler.UrlControllerHandlerMapping;
+import servlet.handler.HandlerAdapter;
+import servlet.handler.HandlerMapping;
+import servlet.handler.HttpHandlerAdapter;
+import servlet.handler.UrlControllerHandlerMapping;
 
 public class ApplicationContext {
     private final HandlerMapping hm;
