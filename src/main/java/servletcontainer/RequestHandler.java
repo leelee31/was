@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 public class RequestHandler implements Runnable {
     private final static Logger logger = LoggerFactory.getLogger(RequestHandler.class);
-    private Socket connection;
+    private final Socket connection;
 
     public RequestHandler(Socket connection) {
         this.connection = connection;
@@ -37,7 +37,7 @@ public class RequestHandler implements Runnable {
             byte[] body = res.getBody();
             response200Header(dos, body.length);
             responseBody(dos, body);
-        } catch (IOException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex) {
+        } catch (IOException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
             logger.error(ex.getMessage(), ex);
         }
     }
