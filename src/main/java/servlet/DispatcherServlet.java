@@ -26,20 +26,20 @@ public class DispatcherServlet implements Servlet {
     public void init() {}
 
     @Override
-    public void service(HttpRequest req, HttpResponse res) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, IOException {
+    public void service(HttpRequest req, HttpResponse res) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, IOException, ClassNotFoundException {
         doDispatch(req, res);
     }
 
     @Override
     public void destroy() {}
 
-    public static Servlet getDispatcherServlet(ApplicationContext ac) {
+    public static Servlet getDispatcherServlet(ApplicationContext ac) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         InnerDispatcherServlet.ds.hm = ac.getHandlerMapping();
         InnerDispatcherServlet.ds.ha = ac.getHandlerAdapter();
         return InnerDispatcherServlet.ds;
     }
 
-    private void doDispatch(HttpRequest req, HttpResponse res) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, IOException {
+    private void doDispatch(HttpRequest req, HttpResponse res) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, IOException, ClassNotFoundException {
         Controller handler = hm.getHandler(req);
         ModelAndView mv = ha.handle(req, res, handler);
         resolveView(mv);
