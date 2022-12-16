@@ -6,17 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpRequestLine {
-    private static final String SPACE = "\\s";
     private final String method;
     private final String url;
     private final String httpVersion;
     private final String path;
-    private final Map<String, String> parameters = new HashMap<>();;
+    private final Map<String, String> parameters = new HashMap<>();
 
     private HttpRequestLine(String method, String url, String httpVersion) {
         this.method = method;
         this.url = url;
-        String[] uri = url.split("\\?");
+        String[] uri = url.split(HttpExp.EXIST_QUERY);
         this.path = uri[0];
         if (existParameters(uri)) {
             extractParameter(uri[1], parameters);
@@ -26,7 +25,7 @@ public class HttpRequestLine {
 
     public static HttpRequestLine create(BufferedReader in) throws IOException {
         String line = in.readLine();
-        String[] token = line.split(SPACE, 3);
+        String[] token = line.split(HttpExp.SPACE, 3);
         return new HttpRequestLine(token[0], token[1], token[2]);
     }
 
@@ -35,7 +34,7 @@ public class HttpRequestLine {
     }
 
     private static void extractParameter(String uri, Map<String, String> parameters) {
-        String[] uris = uri.split("[&;]");
+        String[] uris = uri.split("[&]");
         for (String p : uris) {
             String[] keyAndValue = p.split("=");
             if (keyAndValue.length >= 2) {

@@ -7,9 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class HttpRequestHeader {
-    private static final String BLANK = "";
-    private static final String COLON_SPACE = ":\\s";
-    private static final String COLON = ":";
     private final Map<String, String> fields;
     private final String host;
     private final String port;
@@ -26,12 +23,12 @@ public class HttpRequestHeader {
 
         while(in.ready()) {
             String line = in.readLine();
-            if (line.equals(BLANK)) {
+            if (line.equals(HttpExp.BLANK)) {
                 break;
             }
-            String[] headerTokens = line.split(COLON_SPACE, 2);
+            String[] headerTokens = line.split(HttpExp.COLON_SPACE, 2);
             if (headerTokens[0].equals("Host")) {
-                String[] hostTokens = headerTokens[1].split(COLON, 2);
+                String[] hostTokens = headerTokens[1].split(HttpExp.COLON, 2);
                 host = hostTokens[0];
                 if (hostTokens.length > 1)
                     port = hostTokens[1];
