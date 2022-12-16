@@ -1,6 +1,9 @@
 package servlet;
 
 import controller.WeatherController;
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 import servlet.handler.HandlerMapping;
 import http.HttpRequest;
 import http.HttpResponse;
@@ -32,7 +35,7 @@ public class DispatcherServletTest {
     }
 
     @Test
-    public void dispatch_weatherController_test() throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public void test_200() throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ClassNotFoundException {
         String path = "weather";
         HttpRequest req = HttpUtil.parseRequest(httpMethod + path + httpMsg);
         HttpResponse res = new HttpResponse();
@@ -40,5 +43,15 @@ public class DispatcherServletTest {
         ds.service(req, res);
 
         assertEquals("200", res.getStatusCode());
+    }
+
+    @Test
+    public void test_no_handler_mapping() throws IOException {
+        String path = "print";
+        HttpRequest req = HttpUtil.parseRequest(httpMethod + path + httpMsg);
+        HttpResponse res = new HttpResponse();
+
+        String exMsg = Assert.assertThrows(IllegalArgumentException.class, () -> ds.service(req, res)).getMessage();
+        assertEquals("No Handler Found", exMsg);
     }
 }
